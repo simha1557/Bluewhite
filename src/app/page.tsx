@@ -1,4 +1,5 @@
 import ThemeTest from '@/components/ThemeTest'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export default function HomePage() {
   return (
@@ -76,7 +77,10 @@ export default function HomePage() {
           
           {/* Theme Test - Remove in production */}
           <div className="mt-12">
-            <h3 className="text-center text-lg font-semibold text-foreground mb-4">Theme Variables Test</h3>
+            <h3 className="text-center text-lg font-semibold text-foreground mb-4">Theme System Test</h3>
+            <div className="mb-6 flex justify-center">
+              <ThemeToggle />
+            </div>
             <ThemeTest />
           </div>
         </div>
