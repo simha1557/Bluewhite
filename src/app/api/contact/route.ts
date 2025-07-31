@@ -127,9 +127,11 @@ export async function POST(request: NextRequest) {
           subject: CONFIG.EMAIL.SUBJECT,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
-              New Contact Form Submission
-            </h2>
+            <div style="background: linear-gradient(135deg, #3b82f6, #1e40af); padding: 20px; border-radius: 8px 8px 0 0;">
+              <h1 style="color: white; margin: 0; text-align: center;">BlueWhiteMedia</h1>
+              <p style="color: #e0e7ff; margin: 5px 0 0 0; text-align: center;">New Contact Form Submission</p>
+            </div>
+            <div style="background: white; padding: 20px; border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             
             <div style="margin: 20px 0;">
               <h3 style="color: #555; margin-bottom: 15px;">Contact Details:</h3>
@@ -170,8 +172,10 @@ export async function POST(request: NextRequest) {
               <p style="margin: 5px 0 0 0;"><strong>IP Address:</strong> ${clientIP}</p>
             </div>
 
-            <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #999;">
-              <p>This email was sent from your Design Agency Pro contact form.</p>
+            </div>
+            <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #999; background: #f8fafc; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0;"><strong>BlueWhiteMedia</strong> - Professional Design Services</p>
+              <p style="margin: 5px 0 0 0;">This email was sent from your website contact form.</p>
             </div>
           </div>
         `,

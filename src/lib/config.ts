@@ -11,7 +11,7 @@ export const CONFIG = {
   EMAIL: {
     TO: process.env.RESEND_TO_EMAIL || 'agency@yourcompany.com',
     FROM: process.env.RESEND_FROM_EMAIL || 'noreply@yourcompany.com', 
-    SUBJECT: 'New Contact Form Submission',
+    SUBJECT: 'BlueWhiteMedia - New Contact Form Submission',
   },
   
   // Form configuration

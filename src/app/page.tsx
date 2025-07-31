@@ -7,7 +7,7 @@ export default function HomePage() {
       {/* Header with Theme Toggle */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-lg font-semibold text-foreground">Design Agency Pro</h1>
+                           <h1 className="text-lg font-semibold text-foreground">BlueWhiteMedia</h1>
           <ThemeToggle compact />
         </div>
       </header>

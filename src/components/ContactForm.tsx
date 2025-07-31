@@ -261,7 +261,7 @@ export default function ContactForm({
                 Failed to send message
               </p>
               <p className="text-red-600 dark:text-red-300 text-xs mt-1">
-                Please try again or contact us directly at agency@yourcompany.com
+                Please try again or contact us directly at info@bluewhitemedia.online
               </p>
             </div>
           </div>
