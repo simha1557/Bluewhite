@@ -1,4 +1,3 @@
-import ThemeTest from '@/components/ThemeTest'
 import ThemeToggle from '@/components/ThemeToggle'
 
 export default function HomePage() {
@@ -15,9 +14,9 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="px-6 py-24 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
+          <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl font-sans">
             Professional Design Services
-          </h1>
+          </h2>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
             We help small to medium businesses and startups create compelling design solutions 
             that drive growth and establish strong brand presence.
@@ -57,9 +56,9 @@ export default function HomePage() {
               { name: 'UI/UX Design', description: 'User-centered design for exceptional digital experiences' },
               { name: 'Advertising', description: 'Strategic campaigns that reach and engage your target audience' },
             ].map((service) => (
-              <div key={service.name} className="bg-card text-card-foreground p-8 rounded-xl shadow-sm border border-border">
-                <h3 className="text-lg font-semibold">{service.name}</h3>
-                <p className="mt-4 text-muted-foreground">{service.description}</p>
+              <div key={service.name} className="bg-card text-card-foreground p-8 rounded-xl shadow-sm border border-border hover:shadow-md transition-shadow duration-200">
+                <h3 className="text-lg font-semibold font-sans">{service.name}</h3>
+                <p className="mt-4 text-muted-foreground leading-relaxed">{service.description}</p>
               </div>
             ))}
           </div>
@@ -70,7 +69,7 @@ export default function HomePage() {
       <section id="contact" className="py-24 bg-background">
         <div className="mx-auto max-w-2xl px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl font-sans">
               Let&apos;s Work Together
             </h2>
             <p className="mt-4 text-lg leading-8 text-muted-foreground">
@@ -81,15 +80,6 @@ export default function HomePage() {
             <p className="text-center text-muted-foreground">
               Contact form coming soon...
             </p>
-          </div>
-          
-          {/* Theme Test - Remove in production */}
-          <div className="mt-12">
-            <h3 className="text-center text-lg font-semibold text-foreground mb-4">Theme System Test</h3>
-            <div className="mb-6 flex justify-center">
-              <ThemeToggle showLabel />
-            </div>
-            <ThemeTest />
           </div>
         </div>
       </section>
