@@ -1,4 +1,5 @@
 import ThemeToggle from '@/components/ThemeToggle'
+import ContactForm from '@/components/ContactForm'
 
 export default function HomePage() {
   return (
@@ -76,10 +77,8 @@ export default function HomePage() {
               Ready to elevate your brand? Get in touch with us today.
             </p>
           </div>
-          <div className="mt-12 bg-muted p-8 rounded-xl border border-border">
-            <p className="text-center text-muted-foreground">
-              Contact form coming soon...
-            </p>
+          <div className="mt-12">
+            <ContactForm />
           </div>
         </div>
       </section>
