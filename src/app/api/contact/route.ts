@@ -52,8 +52,11 @@ function getClientIP(request: NextRequest): string {
 
 export async function POST(request: NextRequest) {
   try {
-    // Validate environment variables
-    validateEnvironment()
+    // Validate environment variables (non-blocking for development)
+    const envValid = validateEnvironment()
+    if (!envValid) {
+      console.warn('Some environment variables missing - form will work but email notifications may not')
+    }
 
     // Get client IP for rate limiting
     const clientIP = getClientIP(request)
@@ -115,12 +118,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send email notification via Resend
-    try {
-      const emailResult = await resend.emails.send({
-        from: CONFIG.EMAIL.FROM,
-        to: CONFIG.EMAIL.TO,
-        subject: CONFIG.EMAIL.SUBJECT,
+    // Send email notification via Resend (only if environment is properly configured)
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const emailResult = await resend.emails.send({
+          from: CONFIG.EMAIL.FROM,
+          to: CONFIG.EMAIL.TO,
+          subject: CONFIG.EMAIL.SUBJECT,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
@@ -174,13 +178,16 @@ export async function POST(request: NextRequest) {
         replyTo: email
       })
 
-      if (emailResult.error) {
-        console.error('Email error:', emailResult.error)
-        // Don't fail the request if email fails, but log it
+        if (emailResult.error) {
+          console.error('Email error:', emailResult.error)
+          // Don't fail the request if email fails, but log it
+        }
+      } catch (emailError) {
+        console.error('Failed to send email:', emailError)
+        // Continue with success response even if email fails
       }
-    } catch (emailError) {
-      console.error('Failed to send email:', emailError)
-      // Continue with success response even if email fails
+    } else {
+      console.log('Resend not configured - skipping email notification')
     }
 
     // Return success response

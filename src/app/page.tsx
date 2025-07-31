@@ -22,18 +22,18 @@ export default function HomePage() {
             We help small to medium businesses and startups create compelling design solutions 
             that drive growth and establish strong brand presence.
           </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
+          <div className="mt-10 flex items-center justify-center gap-x-6 flex-col sm:flex-row gap-y-4">
             <a
               href="#contact"
-              className="btn-primary"
+              className="btn-primary w-full sm:w-auto text-center px-8 py-3 shadow-lg hover:shadow-xl transition-shadow"
             >
-              Get Started
+              Get Started Today
             </a>
             <a
               href="#services"
-              className="btn-secondary"
+              className="btn-secondary w-full sm:w-auto text-center px-8 py-3"
             >
-              Our Services
+              View Our Services
             </a>
           </div>
         </div>
@@ -67,18 +67,45 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 bg-background">
-        <div className="mx-auto max-w-2xl px-6 lg:px-8">
-          <div className="text-center">
+      <section id="contact" className="py-24 bg-muted">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl font-sans">
               Let&apos;s Work Together
             </h2>
             <p className="mt-4 text-lg leading-8 text-muted-foreground">
-              Ready to elevate your brand? Get in touch with us today.
+              Ready to elevate your brand? Let&apos;s discuss your project and create something amazing together.
             </p>
           </div>
-          <div className="mt-12">
-            <ContactForm />
+          
+          {/* Contact Form */}
+          <div className="mt-16">
+            <div className="mx-auto max-w-2xl">
+              <div className="bg-background rounded-2xl shadow-xl p-8 sm:p-10 border border-border">
+                <ContactForm />
+              </div>
+            </div>
+          </div>
+          
+          {/* Additional Contact Info */}
+          <div className="mt-16 mx-auto max-w-2xl">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+              <div className="space-y-2">
+                <div className="text-2xl">📧</div>
+                <h3 className="text-sm font-medium text-foreground">Email</h3>
+                <p className="text-sm text-muted-foreground">agency@yourcompany.com</p>
+              </div>
+              <div className="space-y-2">
+                <div className="text-2xl">📞</div>
+                <h3 className="text-sm font-medium text-foreground">Phone</h3>
+                <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+              </div>
+              <div className="space-y-2">
+                <div className="text-2xl">⏰</div>
+                <h3 className="text-sm font-medium text-foreground">Response Time</h3>
+                <p className="text-sm text-muted-foreground">Within 24 hours</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

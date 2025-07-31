@@ -9,8 +9,8 @@ export const CONFIG = {
   
   // Email configuration
   EMAIL: {
-    TO: process.env.CONTACT_EMAIL_TO || 'agency@yourcompany.com',
-    FROM: process.env.CONTACT_EMAIL_FROM || 'noreply@yourcompany.com',
+    TO: process.env.RESEND_TO_EMAIL || 'agency@yourcompany.com',
+    FROM: process.env.RESEND_FROM_EMAIL || 'noreply@yourcompany.com', 
     SUBJECT: 'New Contact Form Submission',
   },
   
@@ -27,7 +27,7 @@ export const CONFIG = {
 export const validateEnvironment = () => {
   const required = [
     'NEXT_PUBLIC_SUPABASE_URL',
-    'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+    'NEXT_PUBLIC_SUPABASE_ANON_KEY', 
     'SUPABASE_SERVICE_ROLE_KEY',
     'RESEND_API_KEY',
   ]
@@ -35,6 +35,8 @@ export const validateEnvironment = () => {
   const missing = required.filter(key => !process.env[key])
   
   if (missing.length > 0) {
-    throw new Error(`Missing required environment variables: ${missing.join(', ')}`)
+    console.warn(`Missing environment variables: ${missing.join(', ')}. Contact form may not function properly.`)
+    return false
   }
+  return true
 }

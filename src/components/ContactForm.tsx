@@ -68,7 +68,7 @@ export default function ContactForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={`space-y-6 ${className}`}>
+    <form onSubmit={handleSubmit(onSubmit)} className={`space-y-6 max-w-2xl mx-auto ${className}`}>
       {/* Name Field */}
       <div>
         <label 
@@ -83,7 +83,8 @@ export default function ContactForm({
           id="name"
           className={`
             w-full px-4 py-3 rounded-lg border bg-background text-foreground
-            transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ring
+            transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1
+            text-base sm:text-sm
             ${errors.name 
               ? 'border-destructive focus:border-destructive' 
               : isFieldValid('name')
@@ -113,7 +114,8 @@ export default function ContactForm({
           id="email"
           className={`
             w-full px-4 py-3 rounded-lg border bg-background text-foreground
-            transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ring
+            transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1
+            text-base sm:text-sm
             ${errors.email 
               ? 'border-destructive focus:border-destructive' 
               : isFieldValid('email')
@@ -143,7 +145,8 @@ export default function ContactForm({
           id="company"
           className={`
             w-full px-4 py-3 rounded-lg border bg-background text-foreground
-            transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ring
+            transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1
+            text-base sm:text-sm
             ${errors.company 
               ? 'border-destructive focus:border-destructive' 
               : isFieldValid('company')
@@ -173,8 +176,8 @@ export default function ContactForm({
           rows={5}
           className={`
             w-full px-4 py-3 rounded-lg border bg-background text-foreground
-            transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ring
-            resize-vertical
+            transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1
+            resize-vertical min-h-[120px] text-base sm:text-sm
             ${errors.message 
               ? 'border-destructive focus:border-destructive' 
               : isFieldValid('message')
@@ -198,11 +201,12 @@ export default function ContactForm({
         type="submit"
         disabled={isSubmitting || !isValid}
         className={`
-          w-full px-6 py-3 rounded-lg font-medium transition-all duration-200
+          w-full px-6 py-4 rounded-lg font-medium transition-all duration-200
           focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
+          text-base sm:text-sm min-h-[52px] flex items-center justify-center
           ${isSubmitting || !isValid
             ? 'bg-muted text-muted-foreground cursor-not-allowed'
-            : 'bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.98]'
+            : 'bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.98] shadow-lg hover:shadow-xl'
           }
         `}
       >
@@ -233,18 +237,34 @@ export default function ContactForm({
 
       {/* Status Messages */}
       {submitStatus === 'success' && (
-        <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-          <p className="text-green-800 dark:text-green-200 text-sm font-medium">
-            ✅ Message sent successfully! We&apos;ll get back to you soon.
-          </p>
+        <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg animate-in fade-in-50 slide-in-from-top-2 duration-300">
+          <div className="flex items-start gap-3">
+            <div className="text-green-600 dark:text-green-400 text-xl">✅</div>
+            <div>
+              <p className="text-green-800 dark:text-green-200 text-sm font-medium">
+                Message sent successfully!
+              </p>
+              <p className="text-green-600 dark:text-green-300 text-xs mt-1">
+                We&apos;ll get back to you within 24 hours.
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
       {submitStatus === 'error' && (
-        <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-          <p className="text-red-800 dark:text-red-200 text-sm font-medium">
-            ❌ Failed to send message. Please try again or contact us directly.
-          </p>
+        <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg animate-in fade-in-50 slide-in-from-top-2 duration-300">
+          <div className="flex items-start gap-3">
+            <div className="text-red-600 dark:text-red-400 text-xl">❌</div>
+            <div>
+              <p className="text-red-800 dark:text-red-200 text-sm font-medium">
+                Failed to send message
+              </p>
+              <p className="text-red-600 dark:text-red-300 text-xs mt-1">
+                Please try again or contact us directly at agency@yourcompany.com
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
