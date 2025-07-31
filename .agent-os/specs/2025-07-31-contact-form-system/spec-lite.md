@@ -1,0 +1,3 @@
+# Spec Summary (Lite)
+
+Implement a comprehensive contact form system with email integration that enables design agency lead generation through validated form submissions, automated email notifications via Resend, and secure data storage in Supabase. This system provides real-time validation, professional user feedback, and immediate email alerts to convert website visitors into qualified leads for the agency.
