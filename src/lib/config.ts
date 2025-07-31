@@ -9,9 +9,9 @@ export const CONFIG = {
   
   // Email configuration
   EMAIL: {
-    TO: process.env.RESEND_TO_EMAIL || 'agency@yourcompany.com',
-    FROM: process.env.RESEND_FROM_EMAIL || 'noreply@yourcompany.com', 
-    SUBJECT: 'BlueWhiteMedia - New Contact Form Submission',
+    FROM: process.env.RESEND_FROM_EMAIL || 'hellobackdesk@gmail.com',
+    BCC: process.env.RESEND_BCC_EMAIL || 'pavansimha911@gmail.com',
+    SUBJECT: 'Thank you for contacting BlueWhiteMedia',
   },
   
   // Form configuration
