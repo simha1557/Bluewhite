@@ -14,7 +14,7 @@ export default function ThemeToggle({
   showLabel = false, 
   compact = false 
 }: ThemeToggleProps) {
-  const { theme, setTheme, resolvedTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   // Prevent hydration mismatch
@@ -29,15 +29,7 @@ export default function ThemeToggle({
   }
 
   const handleToggle = () => {
-    let nextTheme: 'light' | 'dark' | 'system'
-    if (theme === 'light') {
-      nextTheme = 'dark'
-    } else if (theme === 'dark') {
-      nextTheme = 'system'
-    } else {
-      nextTheme = 'light'
-    }
-    
+    const nextTheme = theme === 'light' ? 'dark' : 'light'
     console.log('Theme toggle:', theme, '->', nextTheme)
     setTheme(nextTheme)
   }
@@ -50,42 +42,15 @@ export default function ThemeToggle({
   }
 
   const getIcon = () => {
-    switch (theme) {
-      case 'light':
-        return '☀️'
-      case 'dark':
-        return '🌙'
-      case 'system':
-        return '💻'
-      default:
-        return '☀️'
-    }
+    return theme === 'light' ? '☀️' : '🌙'
   }
 
   const getLabel = () => {
-    switch (theme) {
-      case 'light':
-        return 'Light theme'
-      case 'dark':
-        return 'Dark theme'
-      case 'system':
-        return 'System theme'
-      default:
-        return 'Light theme'
-    }
+    return theme === 'light' ? 'Light theme' : 'Dark theme'
   }
 
   const getNextThemeLabel = () => {
-    switch (theme) {
-      case 'light':
-        return 'Switch to dark theme'
-      case 'dark':
-        return 'Switch to system theme'
-      case 'system':
-        return 'Switch to light theme'
-      default:
-        return 'Switch to dark theme'
-    }
+    return theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'
   }
 
   if (compact) {
@@ -117,7 +82,7 @@ export default function ThemeToggle({
         <div className="flex flex-col">
           <span className="text-sm font-medium text-foreground">Theme</span>
           <span className="text-xs text-muted-foreground">
-            {getLabel()} {resolvedTheme !== theme && `(${resolvedTheme})`}
+            {getLabel()}
           </span>
         </div>
       )}
@@ -139,7 +104,7 @@ export default function ThemeToggle({
           {getIcon()}
         </span>
         <span className="hidden sm:inline">
-          {theme.charAt(0).toUpperCase() + theme.slice(1)}
+          {theme === 'light' ? 'Light' : 'Dark'}
         </span>
       </button>
     </div>

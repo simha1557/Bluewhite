@@ -2,19 +2,17 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
-type Theme = 'light' | 'dark' | 'system'
+type Theme = 'light' | 'dark'
 
 interface ThemeContextType {
   theme: Theme
   setTheme: (theme: Theme) => void
-  resolvedTheme: 'light' | 'dark'
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system')
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light')
+  const [theme, setTheme] = useState<Theme>('light')
   const [mounted, setMounted] = useState(false)
 
   // Set mounted to true after hydration
@@ -22,50 +20,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setMounted(true)
   }, [])
 
-  // Update resolved theme based on system preference and current theme setting
-  useEffect(() => {
-    if (!mounted) return
-
-    const updateResolvedTheme = () => {
-      if (theme === 'system') {
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        setResolvedTheme(systemPrefersDark ? 'dark' : 'light')
-      } else {
-        setResolvedTheme(theme)
-      }
-    }
-
-    // Initial update
-    updateResolvedTheme()
-
-    // Listen for system preference changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = () => {
-      if (theme === 'system') {
-        updateResolvedTheme()
-      }
-    }
-
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [theme, mounted])
-
   // Apply theme to document element
   useEffect(() => {
     if (!mounted) return
     
     const root = document.documentElement
     root.classList.remove('light', 'dark')
-    root.classList.add(resolvedTheme)
+    root.classList.add(theme)
     
     // Debug logging
-    console.log('Theme applied:', resolvedTheme, 'Classes:', root.classList.toString())
-  }, [resolvedTheme, mounted])
+    console.log('Theme applied:', theme, 'Classes:', root.classList.toString())
+  }, [theme, mounted])
 
   const value: ThemeContextType = {
     theme,
     setTheme,
-    resolvedTheme,
   }
 
   return (
