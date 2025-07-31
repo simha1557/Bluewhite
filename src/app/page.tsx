@@ -1,5 +1,4 @@
 import ThemeToggle from '@/components/ThemeToggle'
-import ThemeDebug from '@/components/ThemeDebug'
 
 export default function HomePage() {
   return (
@@ -84,7 +83,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <ThemeDebug />
     </main>
   )
 }
