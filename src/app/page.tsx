@@ -1,3 +1,5 @@
+import ThemeTest from '@/components/ThemeTest'
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-background">
@@ -70,6 +72,12 @@ export default function HomePage() {
             <p className="text-center text-muted-foreground">
               Contact form coming soon...
             </p>
+          </div>
+          
+          {/* Theme Test - Remove in production */}
+          <div className="mt-12">
+            <h3 className="text-center text-lg font-semibold text-foreground mb-4">Theme Variables Test</h3>
+            <ThemeTest />
           </div>
         </div>
       </section>
