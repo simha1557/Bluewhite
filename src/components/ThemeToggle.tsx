@@ -29,13 +29,17 @@ export default function ThemeToggle({
   }
 
   const handleToggle = () => {
+    let nextTheme: 'light' | 'dark' | 'system'
     if (theme === 'light') {
-      setTheme('dark')
+      nextTheme = 'dark'
     } else if (theme === 'dark') {
-      setTheme('system')
+      nextTheme = 'system'
     } else {
-      setTheme('light')
+      nextTheme = 'light'
     }
+    
+    console.log('Theme toggle:', theme, '->', nextTheme)
+    setTheme(nextTheme)
   }
 
   const handleKeyDown = (event: React.KeyboardEvent) => {

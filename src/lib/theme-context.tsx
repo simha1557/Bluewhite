@@ -15,9 +15,17 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('system')
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light')
+  const [mounted, setMounted] = useState(false)
+
+  // Set mounted to true after hydration
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Update resolved theme based on system preference and current theme setting
   useEffect(() => {
+    if (!mounted) return
+
     const updateResolvedTheme = () => {
       if (theme === 'system') {
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -40,14 +48,19 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     mediaQuery.addEventListener('change', handleChange)
     return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [theme])
+  }, [theme, mounted])
 
   // Apply theme to document element
   useEffect(() => {
+    if (!mounted) return
+    
     const root = document.documentElement
     root.classList.remove('light', 'dark')
     root.classList.add(resolvedTheme)
-  }, [resolvedTheme])
+    
+    // Debug logging
+    console.log('Theme applied:', resolvedTheme, 'Classes:', root.classList.toString())
+  }, [resolvedTheme, mounted])
 
   const value: ThemeContextType = {
     theme,
