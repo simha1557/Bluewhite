@@ -86,27 +86,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          
-          {/* Additional Contact Info */}
-          <div className="mt-16 mx-auto max-w-2xl">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-              <div className="space-y-2">
-                <div className="text-2xl">📧</div>
-                <h3 className="text-sm font-medium text-foreground">Email</h3>
-                <p className="text-sm text-muted-foreground">agency@yourcompany.com</p>
-              </div>
-              <div className="space-y-2">
-                <div className="text-2xl">📞</div>
-                <h3 className="text-sm font-medium text-foreground">Phone</h3>
-                <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
-              </div>
-              <div className="space-y-2">
-                <div className="text-2xl">⏰</div>
-                <h3 className="text-sm font-medium text-foreground">Response Time</h3>
-                <p className="text-sm text-muted-foreground">Within 24 hours</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
     </main>
