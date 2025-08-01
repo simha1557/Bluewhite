@@ -19,13 +19,26 @@ const ContactForm = dynamic(() => import('@/components/ContactForm'), {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background pb-20">
       <SmoothScroll />
-      {/* Header with Theme Toggle */}
+      {/* Header with Navigation */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-4 flex justify-between items-center">
-                           <h1 className="text-lg font-semibold text-foreground">BlueWhiteMedia</h1>
-          {/* Dark theme only - no toggle needed */}
+          <h1 className="text-lg font-semibold text-foreground">Pavan Simha</h1>
+          
+          {/* Navigation */}
+          <nav className="flex items-center space-x-6">
+            <StarBorder
+              as="a"
+              href="/about"
+              color="magenta"
+              speed="5s"
+              thickness={3.7}
+              className="text-sm"
+            >
+              About
+            </StarBorder>
+          </nav>
         </div>
       </header>
       
