@@ -9,9 +9,13 @@ export const CONFIG = {
   
   // Email configuration
   EMAIL: {
-    FROM: process.env.RESEND_FROM_EMAIL || 'hellobackdesk@gmail.com',
-    BCC: process.env.RESEND_BCC_EMAIL || 'pavansimha911@gmail.com',
-    SUBJECT: 'Thank you for contacting BlueWhiteMedia',
+    // Use a subdomain for better deliverability (recommended by Resend)
+    // Example: hello@mail.yourdomain.com or noreply@mail.yourdomain.com
+    FROM: process.env.RESEND_FROM_EMAIL || 'hello@mail.bluewhitemedia.online',
+    BCC: process.env.RESEND_BCC_EMAIL ? 
+      process.env.RESEND_BCC_EMAIL.split(',').map(email => email.trim()) : 
+      ['pavansimha911@gmail.com'],
+    SUBJECT: 'New Contact Form Submission',
   },
   
   // Form configuration

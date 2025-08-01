@@ -118,61 +118,107 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send confirmation email to customer via Resend (only if environment is properly configured)
+    // Send notification email to agency via Resend (only if environment is properly configured)
     if (process.env.RESEND_API_KEY) {
       try {
         const emailResult = await resend.emails.send({
           from: `BlueWhiteMedia <${CONFIG.EMAIL.FROM}>`,
-          to: email, // Send to the customer who submitted the form
-          bcc: CONFIG.EMAIL.BCC, // BCC to agency email
-          subject: 'Thank you for contacting BlueWhiteMedia',
-        html: `
+          to: CONFIG.EMAIL.BCC, // Send to multiple agency emails
+          subject: `New Contact Form Submission from ${name}`,
+          html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: linear-gradient(135deg, #3b82f6, #1e40af); padding: 20px; border-radius: 8px 8px 0 0;">
               <h1 style="color: white; margin: 0; text-align: center;">BlueWhiteMedia</h1>
-              <p style="color: #e0e7ff; margin: 5px 0 0 0; text-align: center;">Thank you for contacting us!</p>
+              <p style="color: #e0e7ff; margin: 5px 0 0 0; text-align: center;">🚨 New Contact Form Submission</p>
             </div>
             <div style="background: white; padding: 20px; border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             
             <div style="margin: 20px 0;">
-              <h3 style="color: #555; margin-bottom: 15px;">Hi ${name},</h3>
-              <p style="color: #666; line-height: 1.6; margin-bottom: 15px;">
-                Thank you for reaching out to BlueWhiteMedia! We've received your message and our team will get back to you within 24 hours.
-              </p>
+              <h3 style="color: #555; margin-bottom: 15px;">New inquiry received!</h3>
               
-              <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #3b82f6; margin: 20px 0;">
-                <h4 style="color: #3b82f6; margin: 0 0 10px 0;">Your Message:</h4>
-                <p style="color: #555; margin: 0; line-height: 1.6;">${message.replace(/\n/g, '<br>')}</p>
+              <table style="width: 100%; border-collapse: collapse; background: #f8f9fa; border-radius: 8px; overflow: hidden;">
+                <tr style="background: #3b82f6;">
+                  <td style="padding: 15px; color: white; font-weight: bold;" colspan="2">Contact Details</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;">
+                  <td style="padding: 12px 15px; font-weight: bold; color: #666; width: 30%;">Name:</td>
+                  <td style="padding: 12px 15px; color: #333;">${name}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;">
+                  <td style="padding: 12px 15px; font-weight: bold; color: #666;">Email:</td>
+                  <td style="padding: 12px 15px;">
+                    <a href="mailto:${email}" style="color: #3b82f6; text-decoration: none; font-weight: 500;">${email}</a>
+                  </td>
+                </tr>
+                ${company ? `
+                <tr style="border-bottom: 1px solid #e0e0e0;">
+                  <td style="padding: 12px 15px; font-weight: bold; color: #666;">Company:</td>
+                  <td style="padding: 12px 15px; color: #333;">${company}</td>
+                </tr>
+                ` : ''}
+                <tr>
+                  <td style="padding: 12px 15px; font-weight: bold; color: #666;">Submitted:</td>
+                  <td style="padding: 12px 15px; color: #333;">${new Date().toLocaleString()}</td>
+                </tr>
+              </table>
+            </div>
+
+            <div style="margin: 25px 0;">
+              <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <h4 style="color: #1976d2; margin: 0 0 10px 0;">💬 Message:</h4>
+                <p style="color: #555; margin: 0; line-height: 1.6; white-space: pre-wrap;">${message}</p>
               </div>
-              
-              ${company ? `<p style="color: #666; font-size: 14px;"><strong>Company:</strong> ${company}</p>` : ''}
-              
-              <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                <h4 style="color: #1976d2; margin: 0 0 10px 0;">What happens next?</h4>
-                <ul style="color: #555; margin: 0; padding-left: 20px; line-height: 1.6;">
-                  <li>Our team will review your request</li>
-                  <li>We'll prepare a personalized response</li>
-                  <li>You'll hear back from us within 24 hours</li>
-                </ul>
+            </div>
+
+            <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin: 20px 0;">
+              <h4 style="color: #856404; margin: 0 0 10px 0;">⚡ Quick Actions:</h4>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="mailto:${email}?subject=Re: Your inquiry to BlueWhiteMedia" style="background: #3b82f6; color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px; font-size: 14px; display: inline-block;">Reply to Customer</a>
               </div>
-              
-              <div style="text-align: center; margin: 30px 0;">
-                <p style="color: #666; margin: 0;">Need immediate assistance?</p>
-                <p style="color: #3b82f6; font-weight: bold; margin: 5px 0;">
-                  📧 Email: info@bluewhitemedia.online<br>
-                  🌐 Website: bluewhitemedia.online
-                </p>
-              </div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 15px; background: #f1f5f9; border-radius: 8px; font-size: 12px; color: #666;">
+              <p style="margin: 0;"><strong>Submission ID:</strong> ${contact.id}</p>
+              <p style="margin: 5px 0 0 0;"><strong>IP Address:</strong> ${clientIP}</p>
             </div>
 
             </div>
             <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #999; background: #f8fafc; padding: 15px; border-radius: 8px;">
-              <p style="margin: 0;"><strong>BlueWhiteMedia</strong> - Professional Design Services</p>
-              <p style="margin: 5px 0 0 0;">Transforming ideas into stunning digital experiences</p>
+              <p style="margin: 0;"><strong>BlueWhiteMedia</strong> - Contact Form Notification</p>
+              <p style="margin: 5px 0 0 0;">Reply to this customer within 24 hours for best results</p>
             </div>
           </div>
         `,
-        replyTo: 'info@bluewhitemedia.online'
+        text: `
+BLUEWHITEMEDIA - NEW CONTACT FORM SUBMISSION
+===============================================
+
+🚨 New inquiry received!
+
+CONTACT DETAILS:
+===============
+Name: ${name}
+Email: ${email}${company ? `\nCompany: ${company}` : ''}
+Submitted: ${new Date().toLocaleString()}
+
+MESSAGE:
+========
+${message}
+
+QUICK ACTIONS:
+=============
+Reply to customer: ${email}
+
+TECHNICAL INFO:
+==============
+Submission ID: ${contact.id}
+IP Address: ${clientIP}
+
+---
+BlueWhiteMedia - Contact Form Notification
+Reply to this customer within 24 hours for best results
+        `,
+        replyTo: email
       })
 
         if (emailResult.error) {

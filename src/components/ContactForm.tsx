@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { contactFormSchema, type ContactFormData } from '@/lib/validations'
@@ -14,6 +14,7 @@ export default function ContactForm({
 }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
 
   const {
     register,
@@ -28,9 +29,24 @@ export default function ContactForm({
 
   const watchedFields = watch()
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+    }
+  }, [timeoutId])
+
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true)
     setSubmitStatus('idle')
+    
+    // Clear any existing timeout
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+      setTimeoutId(null)
+    }
 
     try {
       const response = await fetch('/api/contact', {
@@ -50,10 +66,33 @@ export default function ContactForm({
       setSubmitStatus('success')
       reset()
       console.log('Form submitted successfully:', data)
+      console.log('Success status set - message should be visible now!')
+      
+      // Scroll success message into view after a brief delay
+      setTimeout(() => {
+        const successMessage = document.getElementById('success-message')
+        if (successMessage) {
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      }, 100)
+      
+      // Keep success message visible for 5 seconds
+      const id = setTimeout(() => {
+        setSubmitStatus('idle')
+        setTimeoutId(null)
+      }, 5000)
+      setTimeoutId(id)
     } catch (error) {
       setSubmitStatus('error')
       const errorMessage = error instanceof Error ? error.message : 'Failed to submit form'
       console.error('Form submission error:', errorMessage)
+      
+      // Keep error message visible for 7 seconds
+      const id = setTimeout(() => {
+        setSubmitStatus('idle')
+        setTimeoutId(null)
+      }, 7000)
+      setTimeoutId(id)
     } finally {
       setIsSubmitting(false)
     }
@@ -237,7 +276,10 @@ export default function ContactForm({
 
       {/* Status Messages */}
       {submitStatus === 'success' && (
-        <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg animate-in fade-in-50 slide-in-from-top-2 duration-300">
+        <div 
+          id="success-message"
+          className="p-6 bg-green-50 dark:bg-green-900/20 border-2 border-green-300 dark:border-green-700 rounded-lg animate-in fade-in-50 slide-in-from-top-2 duration-300 shadow-lg"
+        >
           <div className="flex items-start gap-3">
             <div className="text-green-600 dark:text-green-400 text-xl">✅</div>
             <div>
