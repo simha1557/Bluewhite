@@ -6,7 +6,7 @@ import ProfileCard from '@/components/ProfileCard'
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-background pb-20">
+    <main className="min-h-screen bg-background">
       <SmoothScroll />
       
       {/* Header */}
