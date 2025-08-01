@@ -2,7 +2,7 @@ import StarBorder from '@/components/ui/StarBorder'
 
 export default function TestLightBeamPage() {
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-8">
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-8 pb-24">
       <div className="space-y-8">
         <h1 className="text-white text-2xl font-bold text-center mb-8">
           Light Beam Animation Test
