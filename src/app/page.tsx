@@ -19,7 +19,7 @@ const ContactForm = dynamic(() => import('@/components/ContactForm'), {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background pb-24">
+    <main className="min-h-screen bg-background">
       <SmoothScroll />
       {/* Header with Navigation */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
@@ -113,7 +113,7 @@ export default function HomePage() {
 
 
       {/* Contact Section */}
-      <section id="contact" className="pt-24 pb-32 bg-muted">
+      <section id="contact" className="pt-24 pb-16 bg-muted">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl font-sans">
