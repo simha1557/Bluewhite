@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
-    "@supabase/supabase-js": "^2.53.0",
     "@types/three": "^0.178.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
@@ -25,7 +24,6 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.61.1",
-    "resend": "^4.7.0",
     "tailwind-merge": "^3.3.1",
     "web-vitals": "^5.1.0",
     "zod": "^4.0.14"
