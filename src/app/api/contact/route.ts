@@ -209,8 +209,16 @@ export async function POST(request: NextRequest) {
 
     // Send email notification if Resend is configured
     let emailSent = false
+    let emailError = null
+    
+    console.log('🔍 Email Configuration Check:')
+    console.log('- RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY)
+    console.log('- RESEND_TO_EMAIL:', process.env.RESEND_TO_EMAIL || 'NOT SET')
+    
     if (process.env.RESEND_API_KEY) {
       try {
+        console.log('📧 Attempting to send email...')
+        
         const emailResult = await resend.emails.send({
           from: 'BlueWhiteMedia <onboarding@resend.dev>',
           to: [process.env.RESEND_TO_EMAIL || 'pavansimha911@gmail.com'],
@@ -252,8 +260,14 @@ Reply to this customer within 24 hours for best results
         console.log('✅ Email sent successfully!')
         console.log('Email ID:', emailResult.data?.id)
         emailSent = true
-      } catch (emailError) {
-        console.error('❌ Failed to send email:', emailError)
+      } catch (error) {
+        emailError = error
+        console.error('❌ Failed to send email:', error)
+        console.error('❌ Email error details:', {
+          message: (error as any).message,
+          status: (error as any).status,
+          code: (error as any).code
+        })
         // Continue with success response even if email fails
       }
     } else {
