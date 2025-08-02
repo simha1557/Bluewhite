@@ -10,6 +10,11 @@ const openSans = Open_Sans({
   variable: '--font-sans'
 })
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://bluewhitemedia.online'),
   title: 'BlueWhiteMedia - Professional Design Services That Drive Results',

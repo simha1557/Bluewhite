@@ -121,6 +121,14 @@ export async function POST(request: NextRequest) {
     // Send notification email to agency via Resend (only if environment is properly configured)
     if (process.env.RESEND_API_KEY) {
       try {
+        // Log email configuration for debugging
+        console.log('📧 Email Configuration:', {
+          hasApiKey: !!process.env.RESEND_API_KEY,
+          fromEmail: CONFIG.EMAIL.FROM,
+          bccEmails: CONFIG.EMAIL.BCC,
+          replyTo: email
+        })
+
         const emailResult = await resend.emails.send({
           from: `BlueWhiteMedia <${CONFIG.EMAIL.FROM}>`,
           to: CONFIG.EMAIL.BCC, // Send to multiple agency emails
@@ -221,16 +229,36 @@ Reply to this customer within 24 hours for best results
         replyTo: email
       })
 
+        // Log detailed email response
+        console.log('📧 Email Send Result:', {
+          success: !emailResult.error,
+          error: emailResult.error,
+          emailId: emailResult.data?.id,
+          from: CONFIG.EMAIL.FROM,
+          to: CONFIG.EMAIL.BCC,
+          replyTo: email,
+          submittedAt: new Date().toISOString()
+        })
+
         if (emailResult.error) {
-          console.error('Email error:', emailResult.error)
-          // Don't fail the request if email fails, but log it
+          console.error('❌ Email send error:', emailResult.error)
+          // Log additional error details
+          console.error('Email error details:', {
+            message: emailResult.error.message,
+            error: emailResult.error
+          })
+        } else {
+          console.log('✅ Email sent successfully!')
+          console.log('Email ID:', emailResult.data?.id)
         }
       } catch (emailError) {
-        console.error('Failed to send email:', emailError)
+        console.error('❌ Failed to send email:', emailError)
+        console.error('Email error stack:', emailError instanceof Error ? emailError.stack : 'No stack trace')
         // Continue with success response even if email fails
       }
     } else {
-      console.log('Resend not configured - skipping email notification')
+      console.log('⚠️ Resend not configured - skipping email notification')
+      console.log('Missing environment variable: RESEND_API_KEY')
     }
 
     // Return success response

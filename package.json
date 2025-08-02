@@ -3,22 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "bash scripts/dev.sh",
+    "dev:clean": "pkill -f 'next dev' 2>/dev/null || true && next dev -p 3000",
+    "dev:kill": "pkill -f 'next dev' 2>/dev/null || true",
+    "dev:port": "next dev -p $PORT",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "ports:status": "echo 'Port 3000:' && lsof -i :3000 2>/dev/null || echo 'Available'",
+    "ports:check": "lsof -i :3000-3010"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
-    "@react-three/fiber": "^8.17.10",
     "@supabase/supabase-js": "^2.53.0",
+    "@types/three": "^0.178.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
     "next": "^14.2.5",
+    "ogl": "^1.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.61.1",
     "resend": "^4.7.0",
-    "three": "^0.178.0",
+    "tailwind-merge": "^3.3.1",
+    "web-vitals": "^5.1.0",
     "zod": "^4.0.14"
   },
   "devDependencies": {
@@ -26,7 +35,6 @@
     "@types/node": "^20.14.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@types/three": "^0.178.1",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
     "autoprefixer": "^10.4.19",

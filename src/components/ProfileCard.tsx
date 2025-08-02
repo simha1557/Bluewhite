@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef, useCallback, useMemo, useState } from "react";
+import Image from "next/image";
 import "./ProfileCard.css";
 
 interface ProfileCardProps {
@@ -79,7 +80,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  // Removed unused imageLoaded state
 
   // Set mounted state
   useEffect(() => {
@@ -364,11 +365,13 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
           <div className="pc-shine" />
           <div className="pc-glare" />
           <div className="pc-content pc-avatar-content">
-            <img
+            <Image
               className="avatar"
               src={avatarUrl}
               alt={`${name || "User"} avatar`}
-              loading="lazy"
+              width={200}
+              height={200}
+              priority
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.style.display = "none";
@@ -384,17 +387,17 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               onLoad={() => {
                 console.log(`Avatar image loaded successfully: ${avatarUrl}`);
                 console.log(`Image format: ${avatarUrl.split('.').pop()}`);
-                setImageLoaded(true);
               }}
             />
             {showUserInfo && (
               <div className="pc-user-info">
                 <div className="pc-user-details">
                   <div className="pc-mini-avatar">
-                    <img
+                    <Image
                       src={miniAvatarUrl || avatarUrl}
                       alt={`${name || "User"} mini avatar`}
-                      loading="lazy"
+                      width={40}
+                      height={40}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.style.opacity = "0.5";

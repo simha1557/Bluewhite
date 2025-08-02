@@ -3,6 +3,7 @@
 import SmoothScroll from '@/components/SmoothScroll'
 import Link from 'next/link'
 import ProfileCard from '@/components/ProfileCard'
+import QuoteSection from '@/components/QuoteSection'
 
 export default function AboutPage() {
   return (
@@ -41,15 +42,15 @@ export default function AboutPage() {
             <div className="lg:col-span-3 order-2 lg:order-1">
               <div className="prose prose-invert max-w-none">
                 <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6">
-                  Pavan Simha Reddy is a creative director and writer based in India, originally from Sathupally, Telangana. Born in 2003, his passion for cinema was sparked by childhood favorites including Finding Nemo, Dinosaur, and Hanuman, which remain influential in his work today.
+                  Pavan Simha Reddy is an Indian writer and creative director from Telangana, Sathupally. He was born in 2003, and he developed a passion for movies when he used to love his favorite early childhood movies, such as Finding Nemo, Dinosaur, and Hanuman, which continue to inspire him.
                 </p>
                 
                 <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6">
-                  His early years were spent exploring storytelling through his father's Kodak camera and home videos. This childhood curiosity evolved into serious pursuit during his teenage years, where he began formally studying film techniques and production.
+                  He learned the art of storytelling in his childhood from his father's Kodak camera and home movies. His early curiosity developed into serious passion in his late teens when he officially learned about film making and film techniques.
                 </p>
                 
                 <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6">
-                  During his college years, Pavan achieved recognition by winning short film competitions at intercollege film festivals for three consecutive years. His notable work includes "Krishna," a short film addressing education and sustainability themes.
+                  Pavan attained distinction during his college years by winning short film competitions conducted in successive intercollege film festivals over a period of three years. His best film is a short film titled "Krishna," which is education and environment oriented.
                 </p>
                 
                 <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6">
@@ -83,6 +84,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Quote Section */}
+      <QuoteSection />
     </main>
   )
 } 
