@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 // Simple in-memory rate limiting (for demo purposes)
+// Updated for Vercel deployment - no external dependencies
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 
 function getRateLimitKey(ip: string): string {
